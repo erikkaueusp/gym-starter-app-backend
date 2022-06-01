@@ -1,6 +1,6 @@
 package com.gymstarter.gymstarterapp;
 
-import com.gymstarter.gymstarterapp.entity.Aluno;
+import com.gymstarter.gymstarterapp.entity.aluno.Aluno;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
