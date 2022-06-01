@@ -1,4 +1,4 @@
-package com.gymstarter.gymstarterapp.entity;
+package com.gymstarter.gymstarterapp.entity.aluno;
 
 import lombok.Getter;
 import lombok.Setter;
