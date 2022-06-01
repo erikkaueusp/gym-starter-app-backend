@@ -60,4 +60,13 @@ public class AlunoService {
             throw new EntityNotFound("Aluno não encontrado");
         }
     }
+
+    public void removeAlunoByName(String nome) {
+        Aluno aluno = this.repository.findByNome(nome);
+        if (Objects.isNull(aluno)) {
+            throw new EntityNotFound("Aluno não encontrado");
+        } else {
+            this.repository.delete(aluno);
+        }
+    }
 }

@@ -26,5 +26,12 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping
+    private ResponseEntity removerAluno(String nome) {
+        this.service.removeAlunoByName(nome);
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+    }
+
 
 }
