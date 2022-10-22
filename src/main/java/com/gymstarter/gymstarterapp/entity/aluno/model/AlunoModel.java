@@ -1,11 +1,15 @@
 package com.gymstarter.gymstarterapp.entity.aluno.model;
 
+import com.gymstarter.gymstarterapp.repository.AlunoDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AlunoModel {
+@NoArgsConstructor
+public class AlunoModel implements AlunoDTO {
 
     private Long id;
 
@@ -17,5 +21,5 @@ public class AlunoModel {
 
     private String telefone;
 
-    private String imagem;
+    private String base;
 }

@@ -21,13 +21,13 @@ public class FormAluno implements Serializable {
     private String tel;
 
 
-    public Aluno converterToAluno(String url) {
+    public Aluno converterToAluno(String base) {
         Aluno aluno = new Aluno();
         aluno.setNome(this.getNome());
         aluno.setEmail(this.getEmail());
         aluno.setEndereco(this.getEndereco());
         aluno.setTelefone(this.getTel());
-        aluno.setCaminhoFoto(url);
+        aluno.setBase(base);
         return aluno;
     }
 

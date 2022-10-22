@@ -5,10 +5,21 @@ import com.gymstarter.gymstarterapp.FormAluno;
 import com.gymstarter.gymstarterapp.entity.aluno.Aluno;
 import com.gymstarter.gymstarterapp.entity.aluno.model.AlunoModel;
 import com.gymstarter.gymstarterapp.exceptions.EntityNotFound;
+import com.gymstarter.gymstarterapp.exceptions.ExistUserException;
+import com.gymstarter.gymstarterapp.repository.AlunoDTO;
 import com.gymstarter.gymstarterapp.repository.AlunoRepository;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -24,26 +35,18 @@ public class AlunoService {
         return formAluno;
     }
 
-    public void save(FormAluno formAluno, String url) {
-        //TODO velidação para cadastro com nomes iguais.
-        Aluno aluno = formAluno.converterToAluno(url);
+    public void save(FormAluno formAluno, String base) {
+        if(!this.findAlunosModel(formAluno.getNome()).isEmpty()){
+            throw new ExistUserException("Já existe aluno cadastrado.");
+        }
+        Aluno aluno = formAluno.converterToAluno(base);
         repository.save(aluno);
     }
-    public AlunoModel findByName(String name) {
-        Aluno aluno = this.repository.findByNome(name);
-        if (Objects.isNull(aluno)) {
-            throw new EntityNotFound("Aluno não encontrado");
-        } else {
-            AlunoModel model = new AlunoModel();
-
-            model.setId(aluno.getId());
-            model.setNome(aluno.getNome());
-            model.setEmail(aluno.getEmail());
-            model.setTelefone(aluno.getTelefone());
-            model.setEndereco(aluno.getEndereco());
-            model.setImagem(aluno.getCaminhoFoto());
-            return model;
+    public List<AlunoDTO> findAlunosModel(String nome) {
+        if(nome == null) {
+            return this.repository.findAlunosModel();
         }
+        return this.repository.findAlunosModel(nome);
     }
 
     public void updateAluno(AlunoModel model) {
@@ -54,7 +57,7 @@ public class AlunoService {
             aluno.setEmail(model.getEmail());
             aluno.setEndereco(model.getEndereco());
             aluno.setTelefone(model.getTelefone());
-            aluno.setCaminhoFoto(model.getImagem());
+            aluno.setBase(model.getBase());
             this.repository.save(aluno);
         } else {
             throw new EntityNotFound("Aluno não encontrado");

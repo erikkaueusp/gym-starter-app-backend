@@ -3,10 +3,7 @@ package com.gymstarter.gymstarterapp.entity.aluno;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +23,8 @@ public class Aluno {
 
     private String telefone;
 
-    private String caminhoFoto;
+    @Column(columnDefinition="TEXT", length = 2048)
+    private String base;
 
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
