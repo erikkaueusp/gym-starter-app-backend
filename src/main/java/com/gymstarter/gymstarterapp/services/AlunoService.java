@@ -8,17 +8,9 @@ import com.gymstarter.gymstarterapp.exceptions.EntityNotFound;
 import com.gymstarter.gymstarterapp.exceptions.ExistUserException;
 import com.gymstarter.gymstarterapp.repository.AlunoDTO;
 import com.gymstarter.gymstarterapp.repository.AlunoRepository;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,15 +41,15 @@ public class AlunoService {
         return this.repository.findAlunosModel(nome);
     }
 
-    public void updateAluno(AlunoModel model) {
+    public void updateAluno(FormAluno formAluno, String base64Image) {
 
-        if (model.getId()!= null) {
-            Aluno aluno = this.repository.getById(model.getId());
-            aluno.setNome(model.getNome());
-            aluno.setEmail(model.getEmail());
-            aluno.setEndereco(model.getEndereco());
-            aluno.setTelefone(model.getTelefone());
-            aluno.setBase(model.getBase());
+        if (formAluno.getId()!= null) {
+            Aluno aluno = this.repository.getById(formAluno.getId());
+            aluno.setNome(formAluno.getNome());
+            aluno.setEmail(formAluno.getEmail());
+            aluno.setEndereco(formAluno.getEndereco());
+            aluno.setTelefone(formAluno.getTel());
+            aluno.setBase(base64Image);
             this.repository.save(aluno);
         } else {
             throw new EntityNotFound("Aluno não encontrado");

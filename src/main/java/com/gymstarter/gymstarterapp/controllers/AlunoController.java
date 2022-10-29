@@ -42,8 +42,10 @@ public class AlunoController {
     }
 
     @PutMapping
-    private ResponseEntity updateAluno(AlunoModel model) {
-        this.service.updateAluno(model);
+    private ResponseEntity updateAluno(@RequestParam("foto") MultipartFile foto, @RequestParam("form") String form) throws IOException {
+        FormAluno formAluno = this.service.serializeFormAluno(form);
+        String base64Image = fotoService.getBase64EncodedImage(foto.getBytes());
+        this.service.updateAluno(formAluno,base64Image);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

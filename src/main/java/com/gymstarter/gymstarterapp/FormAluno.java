@@ -12,6 +12,8 @@ import java.io.Serializable;
 @ToString
 public class FormAluno implements Serializable {
 
+    private Long id;
+
     private String nome;
 
     private String email;

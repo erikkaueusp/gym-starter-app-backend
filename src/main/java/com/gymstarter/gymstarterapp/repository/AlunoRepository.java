@@ -13,10 +13,10 @@ public interface AlunoRepository extends JpaRepository<Aluno,Long> {
 
     Aluno findByNome(String nome);
 
-    @Query(value = "SELECT a.nome as nome, a.email as email, a.endereco as endereco, a.telefone as telefone, a.base as base from Aluno a")
+    @Query(value = "SELECT a.id as id, a.nome as nome, a.email as email, a.endereco as endereco, a.telefone as telefone, a.base as base from Aluno a")
     List<AlunoDTO> findAlunosModel();
 
-    @Query(value = "SELECT a.nome as nome, a.email as email, a.endereco as endereco, a.telefone as telefone, a.base as base from Aluno a where a.nome=:nome")
+    @Query(value = "SELECT a.id as id, a.nome as nome, a.email as email, a.endereco as endereco, a.telefone as telefone, a.base as base from Aluno a where a.nome=:nome")
     List<AlunoDTO> findAlunosModel(String nome);
 
 }
