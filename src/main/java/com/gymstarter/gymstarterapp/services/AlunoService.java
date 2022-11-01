@@ -27,11 +27,11 @@ public class AlunoService {
         return formAluno;
     }
 
-    public void save(FormAluno formAluno, String base) {
+    public void save(FormAluno formAluno) {
         if(!this.findAlunosModel(formAluno.getNome()).isEmpty()){
             throw new ExistUserException("Já existe aluno cadastrado.");
         }
-        Aluno aluno = formAluno.converterToAluno(base);
+        Aluno aluno = formAluno.converterToAluno();
         repository.save(aluno);
     }
     public List<AlunoDTO> findAlunosModel(String nome) {
@@ -41,15 +41,19 @@ public class AlunoService {
         return this.repository.findAlunosModel(nome);
     }
 
-    public void updateAluno(FormAluno formAluno, String base64Image) {
+    public void updateAluno(FormAluno formAluno) {
+
+        if(!this.findAlunosModel(formAluno.getNome()).isEmpty()){
+            throw new ExistUserException("Já existe aluno cadastrado.");
+        }
 
         if (formAluno.getId()!= null) {
             Aluno aluno = this.repository.getById(formAluno.getId());
             aluno.setNome(formAluno.getNome());
             aluno.setEmail(formAluno.getEmail());
             aluno.setEndereco(formAluno.getEndereco());
-            aluno.setTelefone(formAluno.getTel());
-            aluno.setBase(base64Image);
+            aluno.setTelefone(formAluno.getTelefone());
+            aluno.setBase(formAluno.getBase());
             this.repository.save(aluno);
         } else {
             throw new EntityNotFound("Aluno não encontrado");

@@ -20,16 +20,18 @@ public class FormAluno implements Serializable {
 
     private String endereco;
 
-    private String tel;
+    private String telefone;
+
+    private String base;
 
 
-    public Aluno converterToAluno(String base) {
+    public Aluno converterToAluno() {
         Aluno aluno = new Aluno();
         aluno.setNome(this.getNome());
         aluno.setEmail(this.getEmail());
         aluno.setEndereco(this.getEndereco());
-        aluno.setTelefone(this.getTel());
-        aluno.setBase(base);
+        aluno.setTelefone(this.getTelefone());
+        aluno.setBase(this.getBase());
         return aluno;
     }
 

@@ -15,6 +15,7 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
 
     private String email;
@@ -23,7 +24,7 @@ public class Aluno {
 
     private String telefone;
 
-    @Column(columnDefinition="TEXT", length = 2048)
+    @Column(columnDefinition="TEXT", length = 3000000)
     private String base;
 
     private LocalDateTime dataCriacao = LocalDateTime.now();

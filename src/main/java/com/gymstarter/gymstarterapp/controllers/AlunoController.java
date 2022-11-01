@@ -25,14 +25,9 @@ public class AlunoController {
     private FotoService fotoService;
 
     @PostMapping
-    public ResponseEntity cadastraAluno(@RequestParam("foto") MultipartFile foto, @RequestParam("form") String form) throws IOException {
-
-        FormAluno formAluno = this.service.serializeFormAluno(form);
-        String base64Image = fotoService.getBase64EncodedImage(foto.getBytes());
-        service.save(formAluno,base64Image);
-
+    public ResponseEntity cadastraAluno(@RequestBody FormAluno aluno) {
+        service.save(aluno);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-
     }
 
     @GetMapping
@@ -42,10 +37,8 @@ public class AlunoController {
     }
 
     @PutMapping
-    private ResponseEntity updateAluno(@RequestParam("foto") MultipartFile foto, @RequestParam("form") String form) throws IOException {
-        FormAluno formAluno = this.service.serializeFormAluno(form);
-        String base64Image = fotoService.getBase64EncodedImage(foto.getBytes());
-        this.service.updateAluno(formAluno,base64Image);
+    private ResponseEntity updateAluno(@RequestBody FormAluno aluno) {
+        this.service.updateAluno(aluno);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
